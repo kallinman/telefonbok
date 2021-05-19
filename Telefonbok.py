@@ -1,3 +1,5 @@
+import json
+
 def create(name, telefonbok):
     print("Create")
     if name not in telefonbok:
@@ -40,6 +42,28 @@ def deleteName(name, telefonbok):
 
     else:
         print("Namn finns inte i telefonboken")
+
+def savetelefonbok(name, telefonbok):
+    #f = open(name, 'w')
+    #for name, number in telefonbok:
+    f = open(name, 'w')
+    json.dump(telefonbok, f)
+    f.close()
+    #print(json.dumps(telefonbok))
+
+def loadtelefonbok(name):
+    print("Indata:")
+    print("name: " + name)
+    f = open(name, 'r')
+
+    print("load from file:" + name)
+    tmp = json.load(f)
+    print("Hämtat från fil:")
+    print(tmp)
+    f.close()
+    #print(json.dumps(telefonbok))
+    return tmp
+
 
 def huvudmeny():
     print("1 create new name")
@@ -105,6 +129,16 @@ def telefonbokMainLoop():
             print('Ange namn:')
             name = input()
             deleteName(name, telefonbok)
+        elif(selected == 'save'):
+            print('Ange filnamn:')
+            filename = input()
+            savetelefonbok(filename, telefonbok)
+        elif(selected == 'load'):
+            print('Ange filname:')
+            filename = input()
+            telefonbok=loadtelefonbok(filename)
+            print("telefonbok i mainloopen:")
+            print(telefonbok)
 
             #telefonbok[name] = []
 
